@@ -21,3 +21,8 @@ const updateFirstNumber = (digit) => {
   document.querySelector('#screen').textContent = firstNumber
 }
 
+document.querySelector('#buttons').addEventListener('click', (e) => {
+  if (e.target.classList.contains('digit')) {
+    updateFirstNumber(e.target)
+  }
+})
