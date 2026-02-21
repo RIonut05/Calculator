@@ -16,13 +16,30 @@ const operate = (operator, operand1, operand2) => {
   }
 }
 
-const updateFirstNumber = (digit) => {
+const updateOperator = sign => operator = sign.textContent
+const screen = document.querySelector('#screen')
+
+const updateFirstNumber = digit => {
   firstNumber = firstNumber === null ? digit.textContent : firstNumber + digit.textContent
-  document.querySelector('#screen').textContent = firstNumber
+  screen.textContent = firstNumber
 }
+
+const updateSecondNumber = digit => {
+  secondNumber = secondNumber === null ? digit.textContent : secondNumber + digit.textContent
+  screen.textContent = secondNumber
+} 
 
 document.querySelector('#buttons').addEventListener('click', (e) => {
   if (e.target.classList.contains('digit')) {
-    updateFirstNumber(e.target)
+    operator === null ? updateFirstNumber(e.target) : updateSecondNumber(e.target)
+  } else if (e.target.classList.contains('operator')) {
+    updateOperator(e.target)
+  } 
+
+  if (e.target.id === 'equals' && firstNumber !== null && secondNumber !== null) {
+    let result = screen.textContent = operate(operator, Number(firstNumber), Number(secondNumber))
+    firstNumber = result
+    secondNumber = null
+    operator = null
   }
 })
