@@ -9,12 +9,15 @@ let operator = null
 
 const operate = (operator, operand1, operand2) => {
   switch (operator) {
-    case '+': add(operand1, operand2)
-    break
-    case '-': subtract(operand1, operand2)
-    break
-    case '*': multiply(operand1, operand2)
-    break
-    case '/': divide(operand1, operand2)
+    case '+': return add(operand1, operand2)
+    case '-': return subtract(operand1, operand2)
+    case '*': return multiply(operand1, operand2)
+    case '/': return divide(operand1, operand2)
   }
 }
+
+const updateFirstNumber = (digit) => {
+  firstNumber = firstNumber === null ? digit.textContent : firstNumber + digit.textContent
+  document.querySelector('#screen').textContent = firstNumber
+}
+
