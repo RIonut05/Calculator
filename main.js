@@ -6,6 +6,7 @@ const divide = (num1, num2) => num1 / num2
 let firstNumber = null
 let secondNumber = null
 let operator = null
+let resultCheck = null
 
 const operate = (operator, operand1, operand2) => {
   switch (operator) {
@@ -30,16 +31,41 @@ const updateSecondNumber = digit => {
 } 
 
 document.querySelector('#buttons').addEventListener('click', (e) => {
-  if (e.target.classList.contains('digit')) {
+  if (e.target.classList.contains('digit') && resultCheck) {
+    firstNumber = null
+    secondNumber = null
+    operator = null
+    resultCheck = false
+    updateFirstNumber(e.target)
+  }else if (e.target.classList.contains('digit')) {
     operator === null ? updateFirstNumber(e.target) : updateSecondNumber(e.target)
-  } else if (e.target.classList.contains('operator')) {
+  } 
+
+  if (e.target.classList.contains('operator') && secondNumber === null) {
     updateOperator(e.target)
   } 
 
   if (e.target.id === 'equals' && firstNumber !== null && secondNumber !== null) {
     let result = screen.textContent = operate(operator, Number(firstNumber), Number(secondNumber))
-    firstNumber = result
+    if (result === Infinity) screen.textContent = '/'
+    firstNumber = String(result)
     secondNumber = null
     operator = null
+    resultCheck = true
+  }
+
+  if (e.target.classList.contains('operator') && firstNumber !== null && secondNumber !== null) {
+    let result = screen.textContent = operate(operator, Number(firstNumber), Number(secondNumber))
+    if (result === Infinity) screen.textContent = '/'
+    firstNumber = String(result)
+    secondNumber = null
+    updateOperator(e.target)
+  }
+
+  if (e.target.id === 'clear') {
+    firstNumber = null
+    secondNumber = null
+    operator = null
+    screen.textContent = ''
   }
 })
